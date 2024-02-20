@@ -8,3 +8,5 @@ Output akan diprint dalam command prompt
 
 Requirement : install ffmpeg dan masukkan kedalam environment variable.
 "https://ffmpeg.org/"
+
+Hasil running 3 test case := https://drive.google.com/drive/folders/1sObwuZBLqlbyGk9jfJPEd18VbpLPj59H?usp=sharing
