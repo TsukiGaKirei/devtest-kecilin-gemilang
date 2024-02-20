@@ -185,7 +185,7 @@ func getTime(s string) time.Time {
 }
 func getDuration(ctx context.Context, videoFilePath string) (int, error) {
 	//download ffmpeg first and add to cmd 	environment variables
-	cmd := exec.CommandContext(ctx, "ffmpeg", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", videoFilePath)
+	cmd := exec.CommandContext(ctx, "ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", videoFilePath)
 	output, err := cmd.CombinedOutput() // output still in ascii
 	if err != nil {
 		fmt.Println("Error:", err)
