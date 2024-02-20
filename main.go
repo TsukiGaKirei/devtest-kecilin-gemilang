@@ -67,20 +67,20 @@ func main() {
 	})
 
 	//uncomment one set of start time and end time for testing function purpose
-	startTime := time.Date(2024, time.January, 9, 0, 0, 0, 0, time.UTC)
-	endTime := time.Date(2024, time.January, 10, 0, 0, 0, 0, time.UTC)
-	//startTime := time.Date(2024, time.January, 10, 0, 0, 0, 0, time.UTC)
-	//endTime := time.Date(2024, time.January, 11, 0, 0, 0, 0, time.UTC)
-	//startTime := time.Date(2024, time.January, 11, 0, 0, 0, 0, time.UTC)
-	//endTime := time.Date(2024, time.January, 12, 0, 0, 0, 0, time.UTC)
+	// startTimeFilter := time.Date(2024, time.January, 9, 0, 0, 0, 0, time.UTC)
+	// endTimeFilter := time.Date(2024, time.January, 10, 0, 0, 0, 0, time.UTC)
+	startTimeFilter := time.Date(2024, time.January, 10, 0, 0, 0, 0, time.UTC)
+	endTimeFilter := time.Date(2024, time.January, 11, 0, 0, 0, 0, time.UTC)
+	// startTimeFilter := time.Date(2024, time.January, 11, 0, 0, 0, 0, time.UTC)
+	// endTimeFilter := time.Date(2024, time.January, 12, 0, 0, 0, 0, time.UTC)
 
-	result.Result.TotalTime = int(endTime.Sub(startTime).Seconds())
+	result.Result.TotalTime = int(endTimeFilter.Sub(startTimeFilter).Seconds())
 	result.Result.ErrorTime = 0
 	result.Result.RecordTime = 0
 
 	result.Result.TotalRecording = 0
-	result.StartTime = &startTime
-	result.EndTime = &endTime
+	result.StartTime = &startTimeFilter
+	result.EndTime = &endTimeFilter
 	var errorFile []model.Error
 	var recordingFile []model.RecordingFile
 
@@ -94,7 +94,7 @@ func main() {
 				startTime := getTime(v.Name())
 
 				//only proceeds file within range
-				if startTime.Before(endTime.Add(1*time.Millisecond)) && startTime.After(startTime.Add(-1*time.Millisecond)) {
+				if startTime.Before(endTimeFilter.Add(1*time.Millisecond)) && startTime.After(startTimeFilter.Add(-1*time.Millisecond)) {
 					numDuration, err := getDuration(ctx, videoFilePath)
 					if err != nil {
 						return
@@ -114,7 +114,7 @@ func main() {
 					//check if the last video is exactly 5 minutes and there's a video gap
 					if i < len(files)-1 {
 						nextStartTime := getTime(files[i+1].Name())
-						if nextStartTime.Before(endTime.Add(1*time.Millisecond)) && nextStartTime.After(nextStartTime.Add(-1*time.Millisecond)) {
+						if nextStartTime.Before(endTimeFilter.Add(1*time.Millisecond)) && nextStartTime.After(startTimeFilter.Add(-1*time.Millisecond)) {
 							rangeToNextFile = int(nextStartTime.Sub(startTime).Seconds())
 						} else {
 							rangeToNextFile = 0
