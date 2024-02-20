@@ -169,7 +169,7 @@ func main() {
 
 	}
 	fmt.Println(string(jsonOutput))
-	fmt.Println(result.Result.TotalRecording)
+	
 }
 
 // getTime from filename
